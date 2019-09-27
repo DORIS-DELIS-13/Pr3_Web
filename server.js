@@ -86,8 +86,7 @@ app.put('/api/articles/:id', function (req, res) {
 		article.description = req.body.description;
 		article.author = req.body.author;
 		article.images = req.body.images;
-		return article.save(function (err) 
-		{
+		return article.save(function (err) {
 			if (!err) {
 				log.info("article updated");
 				return res.send({ status: 'OK', article:article });
