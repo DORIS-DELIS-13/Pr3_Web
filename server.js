@@ -21,46 +21,37 @@ app.use(methodOverride());
 app.use(express.static(path.join(__dirname, "public"))); 
 
 app.get('/api/articles', function(req, res) {
-	return ArticleModel.find(function (err, articles) {
-		if (!err) 
-		{
-			return res.send(articles);
-		} 
-		else 
-		{
-			res.statusCode = 500;
-			log.error('Internal error(' + res.statusCode + '): ' + err.message);
-			return res.send({ error: 'Server error' });
+    return ArticleModel.find(function (err, articles) {
+        if (!err) {
+            return res.send(articles);
+		} else {
+            res.statusCode = 500;
+            log.error('Internal error(' + res.statusCode + '): ' + err.message);
+            return res.send({ error: 'Server error' });
 		}
 	});
 });
 
 app.post('/api/articles', function(req, res) {
-	var article = new ArticleModel({
-		title: req.body.title,
-		author: req.body.author,
+    var article = new ArticleModel({
+        title: req.body.title,  
+        author: req.body.author,
 		description: req.body.description,
 	});
 	
-	article.save(function (err) {
-		if (!err) 
-		{
-			log.info("article created");
+    article.save(function (err) {
+        if (!err) {
+            log.info("article created");
 			return res.send({
 				status: 'OK',
 				article:article
 			});
-		} 
-		else 
-		{
+		} else {
 			console.log(err);
-			if (err.name == 'ValidationError') 
-			{
+			if (err.name == 'ValidationError') {
 				res.statusCode = 400;
 				res.send({ error: 'Validation error' });
-			} 
-			else 
-			{
+			} else {
 				res.statusCode = 500;
 				res.send({ error: 'Server error' }); 
 			}
@@ -72,8 +63,7 @@ app.post('/api/articles', function(req, res) {
 app.get('/api/articles/:id', function(req, res) {
 	return ArticleModel.findById(req.params.id, function (err, article) 
 	{
-		if (!article) 
-		{
+		if (!article) {
 			res.statusCode = 404;
 			return res.send({ error: 'Not found' });
 		}
@@ -87,7 +77,7 @@ app.get('/api/articles/:id', function(req, res) {
 	});
 });
 
-app.put('/api/articles/:id', function (req, res){
+app.put('/api/articles/:id', function (req, res) {
 	return ArticleModel.findById(req.params.id, function (err, article) 
 	{
 		if (!article) 
@@ -123,7 +113,7 @@ app.put('/api/articles/:id', function (req, res){
 	});
 });
 
-app.delete('/api/articles/:id', function (req, res){
+app.delete('/api/articles/:id', function (req, res) {
 	return ArticleModel.findById(req.params.id, function (err, article) {
 		if(!article) 
 		{
@@ -147,26 +137,26 @@ app.delete('/api/articles/:id', function (req, res){
 	});
 });
 
-app.get('/ErrorExample', function(req, res, next){
+app.get('/ErrorExample', function(req, res, next) {
 	next(new Error('Random error!'));
 });
 
 app.get('/test', function (req, res) {
-  res.send('GET request to the homepage');
+    res.send('GET request to the homepage');
 });
 
 app.get('/api', function (req, res) {
-	res.send('API is running');
+    res.send('API is running');
 });
 
-app.use(function(req, res, next){
+app.use(function(req, res, next) {
 	res.status(404);
 	log.debug('Not found URL: ' + req.url);
 	res.send({ error: 'Not found' });
 	return;
 });
  
-app.use(function(err, req, res, next){ 
+app.use(function(err, req, res, next) { 
 	res.status(err.status || 500);
 	log.error('123');
 	log.error('Internal error(' + res.statusCode + '): ' + err.message);
@@ -174,6 +164,6 @@ app.use(function(err, req, res, next){
  	return;
 });
 
-app.listen(config.get('port'), function(){
+app.listen(config.get('port'), function() {
 	log.info('Express server listening on port ' + config.get('port'));
 }); 
