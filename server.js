@@ -24,7 +24,7 @@ app.get('/api/articles', function(req, res) {
     return ArticleModel.find(function (err, articles) {
         if (!err) {
             return res.send(articles);
-		} else {
+        } else {
             res.statusCode = 500;
             log.error('Internal error(' + res.statusCode + '): ' + err.message);
             return res.send({ error: 'Server error' });
