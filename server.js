@@ -94,16 +94,12 @@ app.put('/api/articles/:id', function (req, res) {
 			if (!err) {
 				log.info("article updated");
 				return res.send({ status: 'OK', article:article });
-			} 
-			else 
-			{ 
+			} else { 
 				if(err.name == 'ValidationError')
 				{
 					res.statusCode = 400;
 					res.send({ error: 'Validation error' });
-				} 
-				else 
-				{
+				} else {
 					res.statusCode = 500;
 					res.send({ error: 'Server error' });
 				}
@@ -126,9 +122,7 @@ app.delete('/api/articles/:id', function (req, res) {
 			{
 				log.info("article removed");
 				return res.send({ status: 'OK' });
-			} 
-			else 
-			{
+			} else {
 				res.statusCode = 500;
 				log.error('Internal error(' + res.statusCode + '): ' + err.message);
 				return res.send({ error: 'Server error' });
