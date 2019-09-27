@@ -28,8 +28,8 @@ app.get('/api/articles', function(req, res) {
             res.statusCode = 500;
             log.error('Internal error(' + res.statusCode + '): ' + err.message);
             return res.send({ error: 'Server error' });
-		}
-	});
+        }
+    });
 });
 
 app.post('/api/articles', function(req, res) {
@@ -111,8 +111,7 @@ app.delete('/api/articles/:id', function (req, res) {
 			res.statusCode = 404;
 			return res.send({ error: 'Not found' });
 		}
-		return article.remove(function (err) 
-		{
+		return article.remove(function (err) {
 			if (!err) {
 				log.info("article removed");
 				return res.send({ status: 'OK' });
