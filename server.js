@@ -111,15 +111,13 @@ app.put('/api/articles/:id', function (req, res) {
 
 app.delete('/api/articles/:id', function (req, res) {
 	return ArticleModel.findById(req.params.id, function (err, article) {
-		if(!article) 
-		{
+		if(!article) {
 			res.statusCode = 404;
 			return res.send({ error: 'Not found' });
 		}
 		return article.remove(function (err) 
 		{
-			if (!err) 
-			{
+			if (!err) {
 				log.info("article removed");
 				return res.send({ status: 'OK' });
 			} else {
