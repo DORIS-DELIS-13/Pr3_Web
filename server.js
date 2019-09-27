@@ -1,6 +1,6 @@
 var express = require('express');
 var favicon = require('serve-favicon');
-var path = require('path')
+var path = require('path');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var methodOverride = require('method-override');
@@ -36,7 +36,7 @@ app.post('/api/articles', function(req, res) {
     var article = new ArticleModel({
         title: req.body.title,  
         author: req.body.author,
-		description: req.body.description,
+        description: req.body.description,
 	});
 	
     article.save(function (err) {
@@ -46,7 +46,7 @@ app.post('/api/articles', function(req, res) {
 				status: 'OK',
 				article:article
 			});
-		} else {
+        } else {
 			console.log(err);
 			if (err.name == 'ValidationError') {
 				res.statusCode = 400;
@@ -80,8 +80,7 @@ app.get('/api/articles/:id', function(req, res) {
 app.put('/api/articles/:id', function (req, res) {
 	return ArticleModel.findById(req.params.id, function (err, article) 
 	{
-		if (!article) 
-		{
+		if (!article) {
 			res.statusCode = 404;
 			return res.send({ error: 'Not found' });
 		}
@@ -95,8 +94,7 @@ app.put('/api/articles/:id', function (req, res) {
 				log.info("article updated");
 				return res.send({ status: 'OK', article:article });
 			} else { 
-				if(err.name == 'ValidationError')
-				{
+				if(err.name == 'ValidationError') {
 					res.statusCode = 400;
 					res.send({ error: 'Validation error' });
 				} else {
